@@ -153,6 +153,8 @@ test("loopback development can select an HTTP fixture", () => {
   assert.equal(isLoopbackHostname("localhost"), true);
   assert.equal(isLoopbackHostname("127.9.8.7"), true);
   assert.equal(isLoopbackHostname("[::1]"), true);
+  assert.equal(isLoopbackHostname("::ffff:127.0.0.1"), true);
+  assert.equal(isLoopbackHostname("::ffff:10.0.0.1"), false);
   assert.equal(isLoopbackHostname("127.0.0.999"), false);
   assert.equal(
     selectDatabaseUrl("http://127.0.0.1:8000/", "?database=/fixtures/index.json").href,

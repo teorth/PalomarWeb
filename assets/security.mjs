@@ -58,6 +58,8 @@ function digest(value, field) {
 export function isLoopbackHostname(hostname) {
   const normalized = hostname.toLowerCase().replace(/^\[|\]$/g, "");
   if (normalized === "localhost" || normalized === "::1") return true;
+  const mapped = normalized.match(/^::ffff:(\d+\.\d+\.\d+\.\d+)$/);
+  if (mapped) return isLoopbackHostname(mapped[1]);
   const octets = normalized.split(".");
   return (
     octets.length === 4 &&
